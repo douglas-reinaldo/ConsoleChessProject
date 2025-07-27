@@ -19,15 +19,60 @@ namespace ConsoleChessProject.chessboard
             Pieces = new Piece[Lines, Columns];
         }
 
+
+
         public Piece piece(int line, int column) 
         {
             return Pieces[line, column];
         }
 
+
+        public Piece piece(Position position) 
+        {
+            return Pieces[position.line, position.column];
+        }
+        
+
+
+
+        public bool pieceExists(Position position) 
+        {
+            validatePosition(position);
+            return piece(position) != null;
+        }
+
+
+
         public void inputPiece(Piece piece, Position position) 
         {
+            if (pieceExists(position))
+            {
+                throw new ChessboardException("There is already exists a piece in this position");
+            }
             Pieces[position.line, position.column] = piece;
             piece.Position = position;
+        }
+
+
+
+        public bool validPosition(Position position) 
+        {
+            if (position.line < 0 || position.line >= Lines || position.column < 0 || position.column >= Columns) 
+            {
+                return false;
+            }
+            return true;
+        }
+
+
+
+
+        public void validatePosition(Position position) 
+        {
+            if (!validPosition(position)) 
+            {
+                throw new ChessboardException("Invalid Position!");
+            }
         }
     }
 }

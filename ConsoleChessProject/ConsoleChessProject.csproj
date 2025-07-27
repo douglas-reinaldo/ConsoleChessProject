@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="chessboard\Chessboard.cs" />
+    <Compile Include="chessboard\ChessboardException.cs" />
     <Compile Include="chessboard\Enums\Cor.cs" />
     <Compile Include="chessboard\Piece.cs" />
     <Compile Include="chessboard\Position.cs" />
