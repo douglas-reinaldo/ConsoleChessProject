@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="chessboard\Chessboard.cs" />
+    <Compile Include="chessboard\Enums\Cor.cs" />
+    <Compile Include="chessboard\Piece.cs" />
     <Compile Include="chessboard\Position.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
