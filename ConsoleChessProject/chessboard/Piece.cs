@@ -14,9 +14,9 @@ namespace ConsoleChessProject.chessboard
         public int Moviments { get; set; }
         public Chessboard Chessboard { get; set; }
 
-        public Piece(Position position, Cor cor, Chessboard chessboard)
+        public Piece(Cor cor, Chessboard chessboard)
         {
-            Position = position;
+            Position = null;
             Cor = cor;
             Chessboard = chessboard;
             Moviments = 0;

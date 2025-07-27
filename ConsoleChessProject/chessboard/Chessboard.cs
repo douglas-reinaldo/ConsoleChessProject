@@ -23,5 +23,11 @@ namespace ConsoleChessProject.chessboard
         {
             return Pieces[line, column];
         }
+
+        public void inputPiece(Piece piece, Position position) 
+        {
+            Pieces[position.line, position.column] = piece;
+            piece.Position = position;
+        }
     }
 }
