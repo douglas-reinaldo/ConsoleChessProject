@@ -8,42 +8,76 @@ namespace ConsoleChessProject
     {
         public static void printChessboard(Chessboard chessboard)
         {
-            for (int i = 0; i < chessboard.Lines; i++) 
+            for (int i = 0; i < chessboard.Lines; i++)
             {
                 Console.Write(8 - i + " ");
-                for (int j = 0; j < chessboard.Columns; j++) 
+                for (int j = 0; j < chessboard.Columns; j++)
                 {
-                    if (chessboard.piece(i, j) == null)
-                    {
-                        Console.Write("- ");
-                    }
-                    else
-                    {
-                        PrintPiece(chessboard.piece(i, j));
-                        Console.Write(" ");
-                    }
+
+                    PrintPiece(chessboard.piece(i, j));
+
                 }
                 Console.WriteLine();
             }
             Console.WriteLine("  a b c d e f g h");
         }
 
-        public static void PrintPiece(Piece piece) 
+        public static void printChessboard(Chessboard chessboard, bool[,] possiblePositions)
         {
-            if (piece.Cor == chessboard.Enums.Cor.Branca) 
+            ConsoleColor originBackground = Console.BackgroundColor;
+            ConsoleColor changedBackground = ConsoleColor.DarkGray;
+
+
+            for (int i = 0; i < chessboard.Lines; i++)
             {
-                Console.Write(piece);
+                Console.Write(8 - i + " ");
+                for (int j = 0; j < chessboard.Columns; j++)
+                {
+                    if (possiblePositions[i, j])
+                    {
+                        Console.BackgroundColor = changedBackground;
+                    }
+                    else
+                    {
+                        Console.BackgroundColor = originBackground;
+                    }
+                    PrintPiece(chessboard.piece(i, j));
+                    Console.BackgroundColor = originBackground;
+
+
+                }
+                Console.WriteLine();
             }
-            else 
+            Console.WriteLine("  a b c d e f g h");
+            Console.BackgroundColor = originBackground;
+        }
+
+
+
+        public static void PrintPiece(Piece piece)
+        {
+            if (piece == null)
             {
-                ConsoleColor cc = Console.ForegroundColor;
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write(piece);
-                Console.ForegroundColor = cc;
+                Console.Write("- ");
+            }
+            else
+            {
+                if (piece.Cor == chessboard.Enums.Cor.Branca)
+                {
+                    Console.Write(piece);
+                }
+                else
+                {
+                    ConsoleColor cc = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write(piece);
+                    Console.ForegroundColor = cc;
+                }
+                Console.Write(" ");
             }
         }
 
-        public static ChessboardPosition readChessPosition() 
+        public static ChessboardPosition readChessPosition()
         {
             string s = Console.ReadLine();
             char column = s[0];

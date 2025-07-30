@@ -21,10 +21,17 @@ namespace ConsoleChessProject
                     Console.Clear();
                     Screen.printChessboard(cm.cb);
 
+                    Console.WriteLine();
                     Console.Write("Source: ");
                     Position source = Screen.readChessPosition().toPosition();
+                    bool[,] possiblePositions = cm.cb.piece(source).possibleMovements();
 
-                    Console.WriteLine("Target: ");
+                    Console.Clear();
+                    Screen.printChessboard(cm.cb, possiblePositions);
+
+
+                    Console.WriteLine();
+                    Console.Write("Target: ");
                     Position target = Screen.readChessPosition().toPosition();
 
                     cm.executeMoviment(source, target);

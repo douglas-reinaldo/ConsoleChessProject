@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleChessProject.chessboard
 {
-    class Piece
+    abstract class Piece
     {
         public Position Position { get; set; }
         public Cor Cor { get; protected set; }
@@ -26,5 +26,7 @@ namespace ConsoleChessProject.chessboard
         {
             Moviments++;
         }
+
+        public abstract bool[,] possibleMovements();
     }
 }

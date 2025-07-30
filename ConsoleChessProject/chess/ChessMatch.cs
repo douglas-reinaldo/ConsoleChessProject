@@ -19,7 +19,7 @@ namespace ConsoleChessProject.chess
         {
             cb = new Chessboard(8, 8);
             turno = 1;
-            currentPlayer = Cor.Branca;
+            currentPlayer = Cor.Preta;
             finished = false;
             setUpPieces();
         }
