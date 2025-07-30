@@ -1,4 +1,5 @@
 ﻿using System;
+using ConsoleChessProject.chess;
 using ConsoleChessProject.chessboard;
 
 namespace ConsoleChessProject
@@ -40,6 +41,14 @@ namespace ConsoleChessProject
                 Console.Write(piece);
                 Console.ForegroundColor = cc;
             }
+        }
+
+        public static ChessboardPosition readChessPosition() 
+        {
+            string s = Console.ReadLine();
+            char column = s[0];
+            int line = int.Parse(s[1] + "");
+            return new ChessboardPosition(column, line);
         }
     }
 

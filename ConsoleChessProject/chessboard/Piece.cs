@@ -21,5 +21,10 @@ namespace ConsoleChessProject.chessboard
             Chessboard = chessboard;
             Moviments = 0;
         }
+
+        public void addMoviments() 
+        {
+            Moviments++;
+        }
     }
 }

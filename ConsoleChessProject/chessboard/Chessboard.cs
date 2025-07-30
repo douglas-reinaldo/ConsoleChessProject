@@ -65,6 +65,18 @@ namespace ConsoleChessProject.chessboard
         }
 
 
+        public Piece removePiece(Position pos) 
+        {
+            if (piece(pos) == null) 
+            {
+                return null;
+            }
+
+            Piece ps = piece(pos);
+            ps.Position = null;
+            Pieces[pos.line, pos.column] = null;
+            return ps;
+        }
 
 
         public void validatePosition(Position position) 

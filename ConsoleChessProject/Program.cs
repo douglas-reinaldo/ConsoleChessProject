@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Security.Permissions;
 using ConsoleChessProject.chess;
 using ConsoleChessProject.chessboard;
@@ -13,14 +14,21 @@ namespace ConsoleChessProject
         {
             try 
             {
-                Chessboard cb = new Chessboard(8, 8);
+                ChessMatch cm = new ChessMatch();
 
-                cb.inputPiece(new Rook(Cor.Preta, cb), new Position(0, 0));
-                cb.inputPiece(new Rook(Cor.Preta, cb), new Position(1, 3));
-                cb.inputPiece(new King(Cor.Preta, cb), new Position(0, 2));
+                while (!cm.finished) 
+                {
+                    Console.Clear();
+                    Screen.printChessboard(cm.cb);
 
-                cb.inputPiece(new King(Cor.Branca, cb), new Position(3, 5));
-                Screen.printChessboard(cb);
+                    Console.Write("Source: ");
+                    Position source = Screen.readChessPosition().toPosition();
+
+                    Console.WriteLine("Target: ");
+                    Position target = Screen.readChessPosition().toPosition();
+
+                    cm.executeMoviment(source, target);
+                }
             }
 
             catch (ChessboardException e) 
