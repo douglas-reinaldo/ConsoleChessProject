@@ -28,5 +28,26 @@ namespace ConsoleChessProject.chessboard
         }
 
         public abstract bool[,] possibleMovements();
+
+        public bool canMoveTo(Position position) 
+        {
+            return possibleMovements()[position.line, position.column];
+        }
+
+        public bool existPossibleMoviments() 
+        {
+            bool[,] mat = possibleMovements();
+            for (int i = 0; i < Chessboard.Lines; i++) 
+            {
+                for (int j = 0; j < Chessboard.Columns; j++) 
+                {
+                    if (mat[i, j]) 
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }

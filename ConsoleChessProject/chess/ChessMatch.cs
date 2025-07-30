@@ -9,8 +9,8 @@ namespace ConsoleChessProject.chess
     class ChessMatch
     {
         public Chessboard cb { get; private set; }
-        private int turno;
-        private Cor currentPlayer;
+        public int turno { get; private set; }
+        public Cor currentPlayer { get; private set; }
         public bool finished { get; private set; }
 
 
@@ -19,7 +19,7 @@ namespace ConsoleChessProject.chess
         {
             cb = new Chessboard(8, 8);
             turno = 1;
-            currentPlayer = Cor.Preta;
+            currentPlayer = Cor.Branca;
             finished = false;
             setUpPieces();
         }
@@ -31,6 +31,50 @@ namespace ConsoleChessProject.chess
             Piece capturedPiece = cb.removePiece(target);
             cb.inputPiece(p, target);
 
+        }
+
+
+        public void makePlay(Position source, Position target) 
+        {
+            executeMoviment(source, target);
+            turno++;
+            changePlayer();
+        }
+
+        public void changePlayer() 
+        {
+            if (currentPlayer == Cor.Branca) 
+            {
+                currentPlayer = Cor.Preta;
+            }
+            else 
+            {
+                currentPlayer = Cor.Branca;
+            }
+        }
+
+        public void validateOriginPosition(Position position) 
+        {
+            if (cb.piece(position) == null) 
+            {
+                throw new ChessboardException("There is no piece in the chosen origin position");
+            }
+            if (currentPlayer != cb.piece(position).Cor) 
+            {
+                throw new ChessboardException("The chosen origin piece is not yours");
+            }
+            if (!cb.piece(position).existPossibleMoviments()) 
+            {
+                throw new ChessboardException("There is no possible movements for chosen origin piece");
+            }
+        }
+
+        public void validateTargetPosition(Position origin, Position target) 
+        {
+            if (!cb.piece(origin).canMoveTo(target)) 
+            {
+                throw new ChessboardException("Invalid target position!");
+            }
         }
 
         public void setUpPieces() 
