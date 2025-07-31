@@ -48,9 +48,13 @@
     <Compile Include="chessboard\Enums\Cor.cs" />
     <Compile Include="chessboard\Piece.cs" />
     <Compile Include="chessboard\Position.cs" />
+    <Compile Include="chess\Bishop.cs" />
     <Compile Include="chess\ChessboardPosition.cs" />
     <Compile Include="chess\ChessMatch.cs" />
     <Compile Include="chess\King.cs" />
+    <Compile Include="chess\Knight.cs" />
+    <Compile Include="chess\Pawn.cs" />
+    <Compile Include="chess\Queen.cs" />
     <Compile Include="chess\Rook.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

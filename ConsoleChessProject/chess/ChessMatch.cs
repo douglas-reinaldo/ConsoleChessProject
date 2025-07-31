@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Diagnostics.Eventing.Reader;
 using System.Collections.Generic;
 using System.Linq;
+using xadrez;
 
 namespace ConsoleChessProject.chess
 {
@@ -220,24 +221,47 @@ namespace ConsoleChessProject.chess
             pieces.Add(piece);
         }
 
-        public void setUpPieces() 
+        public void setUpPieces()
         {
-            insertNewPiece('c', 1, new Rook(Cor.Branca, cb));
-            insertNewPiece('c', 2, new Rook(Cor.Branca, cb));
-            insertNewPiece('d', 2, new Rook(Cor.Branca, cb));
-            insertNewPiece('d', 3, new Rook(Cor.Branca, cb));
-            insertNewPiece('e', 1, new Rook(Cor.Branca, cb));
-            insertNewPiece('d', 1, new King(Cor.Branca, cb));
+            // White pieces
+            insertNewPiece('a', 1, new Rook(Cor.Branca, cb));
+            insertNewPiece('b', 1, new Knight(Cor.Branca, cb));
+            insertNewPiece('c', 1, new Bishop(Cor.Branca, cb));
+            insertNewPiece('d', 1, new Queen(Cor.Branca, cb));
+            insertNewPiece('e', 1, new King(Cor.Branca, cb));
+            insertNewPiece('f', 1, new Bishop(Cor.Branca, cb));
+            insertNewPiece('g', 1, new Knight(Cor.Branca, cb));
+            insertNewPiece('h', 1, new Rook(Cor.Branca, cb));
 
-            insertNewPiece('c', 7, new Rook(Cor.Preta, cb));
-            insertNewPiece('c', 8, new Rook(Cor.Preta, cb));
-            insertNewPiece('d', 7, new Rook(Cor.Preta, cb));
-            insertNewPiece('e', 7, new Rook(Cor.Preta, cb));
-            insertNewPiece('e', 8, new Rook(Cor.Preta, cb));
-            insertNewPiece('d', 8, new King(Cor.Preta, cb));
+            insertNewPiece('a', 2, new Pawn(Cor.Branca, cb));
+            insertNewPiece('b', 2, new Pawn(Cor.Branca, cb));
+            insertNewPiece('c', 2, new Pawn(Cor.Branca, cb));
+            insertNewPiece('d', 2, new Pawn(Cor.Branca, cb));
+            insertNewPiece('e', 2, new Pawn(Cor.Branca, cb));
+            insertNewPiece('f', 2, new Pawn(Cor.Branca, cb));
+            insertNewPiece('g', 2, new Pawn(Cor.Branca, cb));
+            insertNewPiece('h', 2, new Pawn(Cor.Branca, cb));
 
+            // Black pieces
+            insertNewPiece('a', 8, new Rook(Cor.Preta, cb));
+            insertNewPiece('b', 8, new Knight(Cor.Preta, cb));
+            insertNewPiece('c', 8, new Bishop(Cor.Preta, cb));
+            insertNewPiece('d', 8, new Queen(Cor.Preta, cb));
+            insertNewPiece('e', 8, new King(Cor.Preta, cb));
+            insertNewPiece('f', 8, new Bishop(Cor.Preta, cb));
+            insertNewPiece('g', 8, new Knight(Cor.Preta, cb));
+            insertNewPiece('h', 8, new Rook(Cor.Preta, cb));
 
+            insertNewPiece('a', 7, new Pawn(Cor.Preta, cb));
+            insertNewPiece('b', 7, new Pawn(Cor.Preta, cb));
+            insertNewPiece('c', 7, new Pawn(Cor.Preta, cb));
+            insertNewPiece('d', 7, new Pawn(Cor.Preta, cb));
+            insertNewPiece('e', 7, new Pawn(Cor.Preta, cb));
+            insertNewPiece('f', 7, new Pawn(Cor.Preta, cb));
+            insertNewPiece('g', 7, new Pawn(Cor.Preta, cb));
+            insertNewPiece('h', 7, new Pawn(Cor.Preta, cb));
         }
+
 
     }
 }
