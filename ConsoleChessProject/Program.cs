@@ -48,6 +48,8 @@ namespace ConsoleChessProject
                         Console.ReadLine();
                     }
                 }
+                Console.Clear();
+                Screen.printChessMatch(cm);
             }
 
             catch (ChessboardException e) 

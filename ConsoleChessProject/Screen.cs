@@ -15,11 +15,21 @@ namespace ConsoleChessProject
             Console.WriteLine();
             printCapturedPieces(chessMatch);
             Console.WriteLine("Turno: " + chessMatch.turno);
-            Console.WriteLine("Waiting play: " + chessMatch.currentPlayer);
-            if (chessMatch.check) 
+            
+            if (!chessMatch.finished) 
             {
-                Console.WriteLine("CHECK!");
+                Console.WriteLine("Waiting play: " + chessMatch.currentPlayer);
+                if (chessMatch.check)
+                {
+                    Console.WriteLine("CHECK!");
+                }
             }
+            else 
+            {
+                Console.WriteLine("CHECKMATE!");
+                Console.WriteLine("Winner: " + chessMatch.currentPlayer);
+            }
+            
         }
 
         public static void printCapturedPieces(ChessMatch chessMatch)

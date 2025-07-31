@@ -74,10 +74,52 @@ namespace ConsoleChessProject.chess
             {
                 check = false;
             }
+
+            if (checkMateTest(rival(currentPlayer))) 
+            {
+                finished = true;
+            }
+
+            else
+            {
                 turno++;
-            changePlayer();
+                changePlayer();
+            }
+                
         }
 
+
+        public bool checkMateTest(Cor cor) 
+        {
+            if (!isInCheck(cor)) 
+            {
+                return false;
+            }
+
+            foreach (Piece x in piecesInGame(cor)) 
+            {
+                bool[,] mat = x.possibleMovements();
+                for (int i = 0; i < cb.Lines; i++)
+                {
+                    for (int j = 0; j < cb.Columns; j++) 
+                    {
+                        if (mat[i,j]) 
+                        {
+                            Position source = x.Position;
+                            Position target = new Position(i, j);
+                            Piece capturedPiece = executeMoviment(source, target);
+                            bool chessTest = isInCheck(cor);
+                            undoMovement(source, target, capturedPiece);
+                            if (!chessTest)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
 
 
         public void changePlayer() 
