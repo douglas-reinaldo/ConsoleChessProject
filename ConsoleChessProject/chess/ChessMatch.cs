@@ -3,6 +3,8 @@ using ConsoleChessProject.chessboard.Enums;
 using ConsoleChessProject.chessboard;
 using System.Runtime.InteropServices;
 using System.Diagnostics.Eventing.Reader;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ConsoleChessProject.chess
 {
@@ -12,7 +14,8 @@ namespace ConsoleChessProject.chess
         public int turno { get; private set; }
         public Cor currentPlayer { get; private set; }
         public bool finished { get; private set; }
-
+        private HashSet<Piece> pieces;
+        private HashSet<Piece> catchedPieces;
 
 
         public ChessMatch()
@@ -21,6 +24,8 @@ namespace ConsoleChessProject.chess
             turno = 1;
             currentPlayer = Cor.Branca;
             finished = false;
+            pieces = new HashSet<Piece>();
+            catchedPieces = new HashSet<Piece>();
             setUpPieces();
         }
 
@@ -30,6 +35,10 @@ namespace ConsoleChessProject.chess
             p.addMoviments();
             Piece capturedPiece = cb.removePiece(target);
             cb.inputPiece(p, target);
+            if (capturedPiece != null) 
+            {
+                catchedPieces.Add(capturedPiece);
+            }
 
         }
 
@@ -52,6 +61,21 @@ namespace ConsoleChessProject.chess
                 currentPlayer = Cor.Branca;
             }
         }
+
+
+        public HashSet<Piece> capturedPieces(Cor cor) 
+        {
+            return catchedPieces.Where(n => n.Cor == cor).ToHashSet();
+        }
+
+
+        public HashSet<Piece> piecesInGame(Cor cor) 
+        {
+            HashSet<Piece> tempPieces = pieces.Where(n => n.Cor == cor).ToHashSet();
+            tempPieces.ExceptWith(capturedPieces(cor));
+            return tempPieces;
+        }
+
 
         public void validateOriginPosition(Position position) 
         {
@@ -77,23 +101,28 @@ namespace ConsoleChessProject.chess
             }
         }
 
+
+        public void insertNewPiece(char column, int line, Piece piece) 
+        {
+            cb.inputPiece(piece, new ChessboardPosition(column, line).toPosition());
+            pieces.Add(piece);
+        }
+
         public void setUpPieces() 
         {
-            cb.inputPiece(new Rook(Cor.Branca, cb), new ChessboardPosition('c', 1).toPosition());
-            cb.inputPiece(new Rook(Cor.Branca, cb), new ChessboardPosition('c', 2).toPosition());
-            cb.inputPiece(new Rook(Cor.Branca, cb), new ChessboardPosition('d', 2).toPosition());
-            cb.inputPiece(new Rook(Cor.Branca, cb), new ChessboardPosition('d', 3).toPosition());
-            cb.inputPiece(new Rook(Cor.Branca, cb), new ChessboardPosition('e', 1).toPosition());
-            cb.inputPiece(new King(Cor.Branca, cb), new ChessboardPosition('d', 1).toPosition());
+            insertNewPiece('c', 1, new Rook(Cor.Branca, cb));
+            insertNewPiece('c', 2, new Rook(Cor.Branca, cb));
+            insertNewPiece('d', 2, new Rook(Cor.Branca, cb));
+            insertNewPiece('d', 3, new Rook(Cor.Branca, cb));
+            insertNewPiece('e', 1, new Rook(Cor.Branca, cb));
+            insertNewPiece('d', 1, new King(Cor.Branca, cb));
 
-
-            cb.inputPiece(new Rook(Cor.Preta, cb), new ChessboardPosition('c', 7).toPosition());
-            cb.inputPiece(new Rook(Cor.Preta, cb), new ChessboardPosition('c', 8).toPosition());
-            cb.inputPiece(new Rook(Cor.Preta, cb), new ChessboardPosition('d', 7).toPosition());
-            cb.inputPiece(new Rook(Cor.Preta, cb), new ChessboardPosition('e', 7).toPosition());
-            cb.inputPiece(new Rook(Cor.Preta, cb), new ChessboardPosition('e', 8).toPosition());
-            cb.inputPiece(new King(Cor.Preta, cb), new ChessboardPosition('d', 8).toPosition());
-
+            insertNewPiece('c', 7, new Rook(Cor.Preta, cb));
+            insertNewPiece('c', 8, new Rook(Cor.Preta, cb));
+            insertNewPiece('d', 7, new Rook(Cor.Preta, cb));
+            insertNewPiece('e', 7, new Rook(Cor.Preta, cb));
+            insertNewPiece('e', 8, new Rook(Cor.Preta, cb));
+            insertNewPiece('d', 8, new King(Cor.Preta, cb));
 
 
         }

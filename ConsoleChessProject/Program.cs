@@ -22,11 +22,7 @@ namespace ConsoleChessProject
                     try
                     {
                         Console.Clear();
-                        Screen.printChessboard(cm.cb);
-
-                        Console.WriteLine();
-                        Console.WriteLine("Turno: " + cm.turno);
-                        Console.WriteLine("Waiting play: " + cm.currentPlayer);
+                        Screen.printChessMatch(cm);
 
                         Console.WriteLine();
                         Console.Write("Source: ");

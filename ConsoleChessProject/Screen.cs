@@ -1,11 +1,48 @@
 ﻿using System;
 using ConsoleChessProject.chess;
 using ConsoleChessProject.chessboard;
+using ConsoleChessProject.chessboard.Enums;
+using System.Collections.Generic;
 
 namespace ConsoleChessProject
 {
     class Screen
     {
+        public static void printChessMatch(ChessMatch chessMatch)
+        {
+            printChessboard(chessMatch.cb);
+
+            Console.WriteLine();
+            printCapturedPieces(chessMatch);
+            Console.WriteLine("Turno: " + chessMatch.turno);
+            Console.WriteLine("Waiting play: " + chessMatch.currentPlayer);
+        }
+
+        public static void printCapturedPieces(ChessMatch chessMatch)
+        {
+            Console.WriteLine("Captured pieces: ");
+            Console.Write("White: ");
+            printSet(chessMatch.capturedPieces(Cor.Branca));
+            Console.Write("Black: ");
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+
+            printSet(chessMatch.capturedPieces(Cor.Preta));
+            Console.ForegroundColor = aux;
+        }
+
+        public static void printSet(HashSet<Piece> pieces) 
+        {
+            Console.Write("[");
+            foreach (var item in pieces)
+            {
+                Console.Write(item + " ");
+            }
+            Console.Write("]");
+            Console.WriteLine();
+        }
+
+
         public static void printChessboard(Chessboard chessboard)
         {
             for (int i = 0; i < chessboard.Lines; i++)
