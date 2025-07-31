@@ -16,6 +16,10 @@ namespace ConsoleChessProject
             printCapturedPieces(chessMatch);
             Console.WriteLine("Turno: " + chessMatch.turno);
             Console.WriteLine("Waiting play: " + chessMatch.currentPlayer);
+            if (chessMatch.check) 
+            {
+                Console.WriteLine("CHECK!");
+            }
         }
 
         public static void printCapturedPieces(ChessMatch chessMatch)

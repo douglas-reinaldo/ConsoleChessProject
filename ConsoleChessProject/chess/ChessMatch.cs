@@ -16,6 +16,7 @@ namespace ConsoleChessProject.chess
         public bool finished { get; private set; }
         private HashSet<Piece> pieces;
         private HashSet<Piece> catchedPieces;
+        public bool check { get; private set; }
 
 
         public ChessMatch()
@@ -24,12 +25,13 @@ namespace ConsoleChessProject.chess
             turno = 1;
             currentPlayer = Cor.Branca;
             finished = false;
+            check = false;
             pieces = new HashSet<Piece>();
             catchedPieces = new HashSet<Piece>();
             setUpPieces();
         }
 
-        public void executeMoviment(Position source, Position target) 
+        public Piece executeMoviment(Position source, Position target) 
         {
             Piece p = cb.removePiece(source);
             p.addMoviments();
@@ -39,16 +41,44 @@ namespace ConsoleChessProject.chess
             {
                 catchedPieces.Add(capturedPiece);
             }
-
+            return capturedPiece;
         }
 
+        public void undoMovement(Position source, Position target, Piece capturedPiece) 
+        {
+            Piece p = cb.removePiece(target);
+            p.subtractMoviments();
+
+            if (capturedPiece != null) 
+            {
+                cb.inputPiece(capturedPiece, target);
+                catchedPieces.Remove(capturedPiece);
+            }
+            cb.inputPiece(p, source);
+        }
 
         public void makePlay(Position source, Position target) 
         {
-            executeMoviment(source, target);
-            turno++;
+            Piece capturedPiece = executeMoviment(source, target);
+            if (isInCheck(currentPlayer)) 
+            {
+                undoMovement(source, target, capturedPiece);
+                throw new ChessboardException("You can't put yourself in check.");
+            }
+
+            if (isInCheck(rival(currentPlayer))) 
+            {
+                check = true;
+            }
+            else
+            {
+                check = false;
+            }
+                turno++;
             changePlayer();
         }
+
+
 
         public void changePlayer() 
         {
@@ -74,6 +104,46 @@ namespace ConsoleChessProject.chess
             HashSet<Piece> tempPieces = pieces.Where(n => n.Cor == cor).ToHashSet();
             tempPieces.ExceptWith(capturedPieces(cor));
             return tempPieces;
+        }
+
+
+
+        private Cor rival(Cor cor) 
+        {
+            if (cor == Cor.Branca) 
+            {
+                return Cor.Preta;
+            }
+            else 
+            {
+                return Cor.Branca;
+            }
+        }
+
+        public bool isInCheck(Cor cor) 
+        {
+            Piece r = king(cor);
+            foreach (Piece piece in piecesInGame(rival(cor)))
+            {
+                bool[,] mat = piece.possibleMovements();
+                if (mat[r.Position.line, r.Position.column]) 
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private Piece king(Cor cor) 
+        {
+            foreach (Piece piece in piecesInGame(cor)) 
+            {
+                if (piece is King) 
+                {
+                    return piece;
+                }
+            }
+            return null;
         }
 
 

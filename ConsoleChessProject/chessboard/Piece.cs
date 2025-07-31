@@ -27,6 +27,11 @@ namespace ConsoleChessProject.chessboard
             Moviments++;
         }
 
+        public void subtractMoviments() 
+        {
+            Moviments--;
+        }
+
         public abstract bool[,] possibleMovements();
 
         public bool canMoveTo(Position position) 
